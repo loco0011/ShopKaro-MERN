@@ -1,0 +1,274 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.development
+.env.production
+.env.staging
+
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Vite build output
+dist/
+*.local
+
+# Rollup.js default build output
+dist/
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.exe
+*.msi
+*.msm
+*.msp
+
+# Linux
+*~
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+logs
+*.log
+
+# MongoDB
+data/
+
+# Redis
+dump.rdb
+
+# Uploads and user generated content
+uploads/
+public/uploads/
+static/uploads/
+
+# SSL Certificates
+*.pem
+*.key
+*.crt
+*.csr
+
+# PM2 files
+.pm2/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Backup files
+*.backup
+*.bak
+*.tmp
+
+# IDE specific files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+*.sublime-project
+*.sublime-workspace
+
+# MacOS
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Frontend specific (React/Vite)
+# See https://vitejs.dev/guide/static-deploy.html#github-pages
+dist-ssr/
+*.tsbuildinfo
+
+# Backend specific (Node.js/Express)
+# Runtime data
+pids/
+logs/
+results/
+
+# JWT Secret keys
+jwt-secret.txt
+
+# Admin panel build
+admin/dist/
+admin/build/
+
+# Package manager locks (keep only one)
+# Uncomment the line below if you prefer npm over yarn
+# yarn.lock
+# Uncomment the line below if you prefer yarn over npm
+# package-lock.json
+
+# Local environment configuration
+.local
+.cache/
+
+# Sentry
+.sentryclirc
+
+# Cloudinary configuration (if stored locally)
+cloudinary-config.json
+
+# API Documentation build
+docs/build/
+
+# Test files and coverage
+test-results/
+coverage/
+.nyc_output/
+
+# Temporary files created by editors
+*.swp
+*.swo
+*.tmp
+*~
+
+# System files
+Icon?
+Thumbs.db
+.DS_Store
+
+# Project specific exclusions
+# Add any project specific files/folders that should not be tracked
+*.local.js
+*.local.json
+config/local.js
+config/local.json
+
+# Vercel
+.vercel
+
+# Turbo
+.turbo
