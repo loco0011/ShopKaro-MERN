@@ -11,7 +11,6 @@ const createToken = (id) => {
 // User login
 const loginUser = async (req, res) => {
     try {
-        console.log('Login request received:', { email: req.body.email });
         const { email, password } = req.body;
 
         // Validate required fields
@@ -31,8 +30,6 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Invalid email or password' });
         }
 
-        console.log('User logged in successfully:', user.email);
-
         // Create and send token
         const token = createToken(user._id);
         res.json({ success: true, token, user: { id: user._id, name: user.name, email: user.email } });
@@ -46,7 +43,6 @@ const loginUser = async (req, res) => {
 // User registration
 const registerUser = async (req, res) => {
     try {
-        console.log('Registration request received:', { name: req.body.name, email: req.body.email });
         const { name, email, password } = req.body;
 
         // Validate required fields
@@ -81,7 +77,6 @@ const registerUser = async (req, res) => {
             password: hashedPassword
         });
         const user = await newUser.save();
-        console.log('User created successfully:', user.email);
 
         // Create and send token
         const token = createToken(user._id);

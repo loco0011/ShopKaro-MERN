@@ -5,9 +5,6 @@ import ProductModel from '../models/productModel.js';
 //Add Product
 const addProduct = async (req, res) => {
     try {
-        console.log('Add Product Request Body:', req.body);
-        console.log('Add Product Files:', req.files);
-
         const { name, description, price, category, subCategory, sizes, bestseller } = req.body;
 
         // Validate required fields
@@ -33,8 +30,6 @@ const addProduct = async (req, res) => {
             });
         }
 
-        console.log('Images to upload:', images);
-
         let imagesUrl = await Promise.all(images.map(async (image) => {
             try {
                 const result = await cloudinary.uploader.upload(image, {
@@ -46,8 +41,6 @@ const addProduct = async (req, res) => {
                 throw new Error(`Failed to upload image: ${uploadError.message}`);
             }
         }));
-
-        console.log('Uploaded image URLs:', imagesUrl);
 
         const productData = {
             name,
@@ -61,13 +54,9 @@ const addProduct = async (req, res) => {
             date: Date.now()
         };
 
-        console.log('Product data to save:', productData);
-
         // Create new product
         const newProduct = new ProductModel(productData);
         await newProduct.save();
-
-        console.log('Product saved successfully:', newProduct._id);
 
         res.status(201).json({
             success: true,
@@ -81,9 +70,7 @@ const addProduct = async (req, res) => {
             message: error.message || 'Failed to add product'
         });
     }
-}
-
-// Get all products
+}// Get all products
 const getAllProducts = async (req, res) => {
     try {
         const products = await ProductModel.find({});

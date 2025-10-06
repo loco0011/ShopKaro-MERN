@@ -5,28 +5,16 @@ import UserModel from '../models/userModel.js';
 
 const placeOrderCOD = async (req, res) => {
     try {
-        console.log("=== PLACE ORDER COD DEBUG ===");
-        console.log("Request body:", req.body);
-        console.log("User ID from auth middleware:", req.userId);
-
         const { shippingDetails, cartItems, totalAmount } = req.body;
         const userId = req.userId; // Get userId from auth middleware
 
-        console.log("Extracted values:");
-        console.log("userId:", userId);
-        console.log("shippingDetails:", shippingDetails);
-        console.log("cartItems:", cartItems);
-        console.log("totalAmount:", totalAmount);
-
         if (!userId || !shippingDetails || !cartItems || !totalAmount) {
-            console.log("ERROR: Missing required fields");
             return res.status(400).json({
                 success: false,
                 message: 'All fields are required'
             });
         }
 
-        console.log("Creating new order...");
         const newOrder = new OrderModel({
             userId,
             items: cartItems,
@@ -37,13 +25,9 @@ const placeOrderCOD = async (req, res) => {
             paymentStatus: 'Pending'
         });
 
-        console.log("Saving order to database...");
         await newOrder.save();
-
-        console.log("Clearing user cart...");
         await UserModel.findByIdAndUpdate(userId, { cartData: {} });
 
-        console.log("Order placed successfully:", newOrder._id);
         res.status(201).json({
             success: true,
             message: 'Order placed successfully',

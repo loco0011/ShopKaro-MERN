@@ -20,13 +20,11 @@ const Login = () => {
 
     try {
       if (currentState === "Sign Up") {
-        console.log('Sending registration request to:', `${backend_url}/api/user/register`);
         const response = await axios.post(`${backend_url}/api/user/register`, {
           name,
           email,
           password,
         });
-        console.log('Registration response:', response.data);
 
         const data = response.data;
         if (data.success) {
@@ -38,12 +36,10 @@ const Login = () => {
           toast.error(data.message || "Registration failed");
         }
       } else {
-        console.log('Sending login request to:', `${backend_url}/api/user/login`);
         const response = await axios.post(`${backend_url}/api/user/login`, {
           email,
           password,
         });
-        console.log('Login response:', response.data);
 
         const data = response.data;
         if (data.success) {

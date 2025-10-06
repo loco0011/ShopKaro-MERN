@@ -74,13 +74,10 @@ const PlaceOrder = () => {
               toast.error("Could not place the order");
             }
           } catch (apiError) {
-            console.error("API Error:", apiError);
-
             if (apiError.response) {
               // Server responded with error status
               const errorMessage = apiError.response.data?.message || "Server error occurred";
               toast.error(`Order failed: ${errorMessage}`);
-              console.error("Server error details:", apiError.response.data);
             } else if (apiError.request) {
               // Request was made but no response received
               toast.error("Backend server is not running. Please start the backend server.");
@@ -112,7 +109,6 @@ const PlaceOrder = () => {
       }
 
     } catch (error) {
-      console.error("Error placing order:", error);
       toast.error("Failed to place order. Please try again.");
     }
   };
