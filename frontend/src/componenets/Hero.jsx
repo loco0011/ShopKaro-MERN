@@ -1,7 +1,17 @@
 import React from 'react'
+import { useContext } from 'react'
 import { assets } from "../assets/frontend_assets/assets";
+import { ShopContext } from '../context/ShopContext';
 
 const Hero = () => {
+  const { navigate } = useContext(ShopContext);
+
+  const handleShopNow = () => {
+    navigate('/collection');
+    // Scroll to top of the page after navigation
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className='relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100'>
       <div className='flex flex-col lg:flex-row min-h-[600px] lg:min-h-[700px]'>
@@ -31,7 +41,10 @@ const Hero = () => {
 
             {/* CTA Button */}
             <div className='relative inline-block'>
-              <button className='group relative overflow-hidden bg-black text-white px-12 py-6 text-lg font-semibold tracking-wide transition-all duration-500 hover:bg-gray-900 hover:scale-105 hover:shadow-[0_15px_35px_rgba(0,0,0,0.3)] active:scale-95 rounded-full border-2 border-transparent hover:border-gray-300'>
+              <button
+                onClick={handleShopNow}
+                className='group relative overflow-hidden bg-black text-white px-12 py-6 text-lg font-semibold tracking-wide transition-all duration-500 hover:bg-gray-900 hover:scale-105 hover:shadow-[0_15px_35px_rgba(0,0,0,0.3)] active:scale-95 rounded-full border-2 border-transparent hover:border-gray-300 cursor-pointer'
+              >
                 {/* Background Animation */}
                 <div className='absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-full'></div>
 

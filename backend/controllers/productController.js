@@ -5,21 +5,49 @@ import ProductModel from '../models/productModel.js';
 //Add Product
 const addProduct = async (req, res) => {
     try {
+        console.log('Add Product Request Body:', req.body);
+        console.log('Add Product Files:', req.files);
+
         const { name, description, price, category, subCategory, sizes, bestseller } = req.body;
 
+        // Validate required fields
+        if (!name || !description || !price || !category || !subCategory || !sizes) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required: name, description, price, category, subCategory, sizes'
+            });
+        }
+
         // Handle images
-        const image1 = req.files['image1'] ? req.files['image1'][0].path : null;
-        const image2 = req.files['image2'] ? req.files['image2'][0].path : null;
-        const image3 = req.files['image3'] ? req.files['image3'][0].path : null;
-        const image4 = req.files['image4'] ? req.files['image4'][0].path : null;
+        const image1 = req.files['image1'] && req.files['image1'][0] ? req.files['image1'][0].path : null;
+        const image2 = req.files['image2'] && req.files['image2'][0] ? req.files['image2'][0].path : null;
+        const image3 = req.files['image3'] && req.files['image3'][0] ? req.files['image3'][0].path : null;
+        const image4 = req.files['image4'] && req.files['image4'][0] ? req.files['image4'][0].path : null;
 
         const images = [image1, image2, image3, image4].filter(item => item !== null);
 
+        if (images.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'At least one product image is required'
+            });
+        }
+
+        console.log('Images to upload:', images);
+
         let imagesUrl = await Promise.all(images.map(async (image) => {
-            return await cloudinary.uploader.upload(image, {
-                folder: 'e-commerce'
-            }).then((result) => result.secure_url);
+            try {
+                const result = await cloudinary.uploader.upload(image, {
+                    folder: 'e-commerce'
+                });
+                return result.secure_url;
+            } catch (uploadError) {
+                console.error('Cloudinary upload error:', uploadError);
+                throw new Error(`Failed to upload image: ${uploadError.message}`);
+            }
         }));
+
+        console.log('Uploaded image URLs:', imagesUrl);
 
         const productData = {
             name,
@@ -33,13 +61,25 @@ const addProduct = async (req, res) => {
             date: Date.now()
         };
 
+        console.log('Product data to save:', productData);
+
         // Create new product
         const newProduct = new ProductModel(productData);
         await newProduct.save();
 
-        res.status(201).json({ message: 'Product added successfully', product: newProduct });
+        console.log('Product saved successfully:', newProduct._id);
+
+        res.status(201).json({
+            success: true,
+            message: 'Product added successfully',
+            product: newProduct
+        });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Add Product Error:', error);
+        res.status(500).json({
+            success: false,
+            message: error.message || 'Failed to add product'
+        });
     }
 }
 

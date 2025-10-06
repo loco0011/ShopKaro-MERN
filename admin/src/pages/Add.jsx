@@ -3,8 +3,9 @@ import { useState } from "react";
 import assets from "../assets/admin_assets/assets";
 import axios from "axios";
 import { backendUrl } from "../App";
+import { toast } from 'react-toastify';
 
-const Add = (token) => {
+const Add = ({ token }) => {
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
@@ -12,8 +13,8 @@ const Add = (token) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [subCategory, setSubCategory] = useState("");
+  const [category, setCategory] = useState("Men");
+  const [subCategory, setSubCategory] = useState("Topwear");
   const [price, setPrice] = useState(0);
   const [sizes, setSizes] = useState([]);
   const [bestseller, setBestseller] = useState(false);
@@ -21,6 +22,17 @@ const Add = (token) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
+      // Validation
+      if (!name || !description || !category || !subCategory || !price || sizes.length === 0) {
+        toast.error("Please fill all required fields");
+        return;
+      }
+
+      if (!image1) {
+        toast.error("Please upload at least one product image");
+        return;
+      }
+
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
@@ -34,18 +46,25 @@ const Add = (token) => {
       image3 && formData.append("image3", image3);
       image4 && formData.append("image4", image4);
 
+      console.log('Submitting form data...');
+      console.log('Token:', token);
+
       const response = await axios.post(backendUrl + "/api/product/add", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
+
+      console.log('Response:', response.data);
+
       if (response.data.success) {
         toast.success("Product added successfully");
+        // Reset form
         setName("");
         setDescription("");
-        setCategory("");
-        setSubCategory("");
+        setCategory("Men");
+        setSubCategory("Topwear");
         setPrice(0);
         setSizes([]);
         setBestseller(false);
@@ -53,9 +72,12 @@ const Add = (token) => {
         setImage2(false);
         setImage3(false);
         setImage4(false);
+      } else {
+        toast.error(response.data.message || "Failed to add product");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error(error.response?.data?.message || "Failed to add product");
     }
   };
 
@@ -146,10 +168,11 @@ const Add = (token) => {
             onChange={(e) => setCategory(e.target.value)}
             value={category}
             className="w-full px-3 py-2"
+            required
           >
-            <option value="men">Men</option>
-            <option value="women">Women</option>
-            <option value="kids">Kids</option>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Kids">Kids</option>
           </select>
         </div>
         <div>
@@ -158,10 +181,11 @@ const Add = (token) => {
             onChange={(e) => setSubCategory(e.target.value)}
             value={subCategory}
             className="w-full px-3 py-2"
+            required
           >
             <option value="Topwear">Topwear</option>
             <option value="Bottomwear">Bottomwear</option>
-            <option value="Footwear">Footwear</option>
+            <option value="Winterwear">Winterwear</option>
           </select>
         </div>
         <div>
@@ -172,6 +196,8 @@ const Add = (token) => {
             type="number"
             className="w-full sm:w-[120px] px-3 py-2"
             placeholder="25"
+            min="0"
+            required
           />
         </div>
       </div>

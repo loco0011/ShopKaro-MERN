@@ -7,8 +7,11 @@ const placeOrderCOD = async (req, res) => {
     try {
         console.log("=== PLACE ORDER COD DEBUG ===");
         console.log("Request body:", req.body);
+        console.log("User ID from auth middleware:", req.userId);
 
-        const { userId, shippingDetails, cartItems, totalAmount } = req.body;
+        const { shippingDetails, cartItems, totalAmount } = req.body;
+        const userId = req.userId; // Get userId from auth middleware
+
         console.log("Extracted values:");
         console.log("userId:", userId);
         console.log("shippingDetails:", shippingDetails);
@@ -55,7 +58,8 @@ const placeOrderCOD = async (req, res) => {
 // Place orders using Razorpay
 const placeOrderRazorpay = async (req, res) => {
     try {
-        const { userId, shippingDetails, cartItems, totalAmount, paymentId } = req.body;
+        const { shippingDetails, cartItems, totalAmount, paymentId } = req.body;
+        const userId = req.userId; // Get userId from auth middleware
 
         if (!userId || !shippingDetails || !cartItems || !totalAmount || !paymentId) {
             return res.status(400).json({
@@ -90,7 +94,8 @@ const placeOrderRazorpay = async (req, res) => {
 // Place orders using Stripe
 const placeOrderStripe = async (req, res) => {
     try {
-        const { userId, shippingDetails, cartItems, totalAmount, paymentId } = req.body;
+        const { shippingDetails, cartItems, totalAmount, paymentId } = req.body;
+        const userId = req.userId; // Get userId from auth middleware
 
         if (!userId || !shippingDetails || !cartItems || !totalAmount || !paymentId) {
             return res.status(400).json({
@@ -135,7 +140,7 @@ const getAllOrders = async (req, res) => {
 // Get orders for a specific user
 const getUserOrders = async (req, res) => {
     try {
-        const { userId } = req.body;
+        const userId = req.userId; // Get userId from auth middleware
 
         if (!userId) {
             return res.status(400).json({

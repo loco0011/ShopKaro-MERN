@@ -13,6 +13,8 @@ const LatestCollection = () => {
 
   const handleViewAllProducts = () => {
     navigate('/collection');
+    // Scroll to top of the page after navigation
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -62,27 +64,26 @@ const LatestCollection = () => {
           ))}
         </div>        {/* View All Button */}
         <div className="text-center mt-16">
-          <div className="relative inline-block group">
-            <button
-              onClick={handleViewAllProducts}
-              className="relative bg-gradient-to-r from-slate-900 via-gray-900 to-slate-800 text-white px-12 py-6 font-bold text-lg tracking-wider uppercase transition-all duration-700 hover:shadow-[0_25px_50px_rgba(0,0,0,0.4)] transform hover:-translate-y-3 active:scale-[0.97] cursor-pointer overflow-hidden rounded-2xl border border-white/20 backdrop-blur-lg group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-purple-600/30 to-pink-600/30 transform rotate-180 scale-x-0 group-hover:scale-x-100 group-hover:rotate-0 transition-all duration-700 origin-center"></div>
-              <div className="absolute inset-0 bg-white/10 transform scale-0 group-hover:scale-100 transition-transform duration-500 rounded-2xl"></div>
-              <span className="relative z-10 flex items-center gap-4">
-                <span className="group-hover:text-white transition-colors duration-300">View All Products</span>
-                <div className="relative">
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 group-hover:rotate-45 transition-all duration-500">
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-ping"></div>
+          <button
+            onClick={handleViewAllProducts}
+            className="relative bg-gradient-to-r from-slate-900 via-gray-900 to-slate-800 text-white px-12 py-6 font-bold text-lg tracking-wider uppercase transition-all duration-700 hover:shadow-[0_25px_50px_rgba(0,0,0,0.4)] transform hover:-translate-y-3 active:scale-[0.97] cursor-pointer overflow-hidden rounded-2xl border border-white/20 backdrop-blur-lg group"
+            type="button"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-purple-600/30 to-pink-600/30 transform rotate-180 scale-x-0 group-hover:scale-x-100 group-hover:rotate-0 transition-all duration-700 origin-center"></div>
+            <div className="absolute inset-0 bg-white/10 transform scale-0 group-hover:scale-100 transition-transform duration-500 rounded-2xl"></div>
+            <span className="relative z-10 flex items-center gap-4">
+              <span className="group-hover:text-white transition-colors duration-300">View All Products</span>
+              <div className="relative">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 group-hover:rotate-45 transition-all duration-500">
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </div>
-              </span>
-            </button>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"></div>
-          </div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-ping"></div>
+              </div>
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl -z-10"></div>
+          </button>
         </div>
       </div>
     </div>

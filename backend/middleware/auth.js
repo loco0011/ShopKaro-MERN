@@ -13,7 +13,7 @@ const authUser = async (req, res, next) => {
         }
 
         const token_decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.body.userId = token_decoded.id;
+        req.userId = token_decoded.id; // Changed from req.body.userId to req.userId
 
         next();
     } catch (error) {
@@ -22,4 +22,6 @@ const authUser = async (req, res, next) => {
             message: 'Not authorized user. Invalid token.'
         });
     }
-};export { authUser };
+};
+
+export default authUser;
